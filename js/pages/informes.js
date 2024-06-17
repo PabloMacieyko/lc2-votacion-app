@@ -82,11 +82,11 @@ async function consultarResultados(url, informe) {
             console.log(resultados);
             crearInforme(resultados, informe);
         } else {
-            mostrarMensaje(msjRojo, "Error, el servidor sssse encuentra fuera de servicio!");
+            mostrarMensaje(msjRojo, "Error, el servidor se encuentra fuera de servicio!");
         }
     }
     catch (errorObj) {
-        mostrarMensaje(msjRojo, "Error, el servidor sssse encuentra fuera de servicio!");
+        mostrarMensaje(msjRojo, "Error, el servidor se encuentra fuera de servicio!");
     }
 };
 

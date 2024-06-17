@@ -47,8 +47,6 @@ const graficaVerde = getComputedStyle(document.documentElement).getPropertyValue
 const graficaVerdeClaro = getComputedStyle(document.documentElement).getPropertyValue('--grafica-verde-claro');
 
 
-
-
 const agrupacionesYColores = {
     0: { oscuro: getComputedStyle(document.documentElement).getPropertyValue('--grafica-amarillo'), claro: getComputedStyle(document.documentElement).getPropertyValue('--grafica-amarillo-claro') },
     1: { oscuro: getComputedStyle(document.documentElement).getPropertyValue('--grafica-celeste'), claro: getComputedStyle(document.documentElement).getPropertyValue('--grafica-celeste-claro') },
@@ -249,7 +247,7 @@ async function filtrarResultados() {
                 cuadroAgrupPoliticas();
                 mostrarContenido();
             } else {
-                mostrarMensaje(msjRojo, "Error, el servidor sssse encuentra fuera de servicio!");
+                mostrarMensaje(msjRojo, "Error, el servidor se encuentra fuera de servicio!");
             }
         }
         catch (errorObj) {
