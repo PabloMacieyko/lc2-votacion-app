@@ -1,0 +1,115 @@
+/* boton + AGREGAR A INFORME */
+
+.agregar-informe {
+    background-color: var(--gris-claro);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    padding: 9px;
+    margin: 12px;
+    border-radius: 10px;
+    height: 40px;
+    width: 240px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 0.2s;
+    color: var(--textos);
+}
+
+/* Estilos cuadros */
+.cuadros {
+    border-radius: 25px;
+    border: 1px var(--borde-Grilla) solid;
+}
+
+/* Estilos para los títulos de los cuadros */
+.titulo-cuadros {
+    font-weight: bold;
+    padding: 0.8em 0 0 0; 
+    text-align: center;
+    white-space: nowrap;
+    height: 50px;
+    font-size: 20px;
+}
+/* ========================= */
+/* AGRUPACIONES POLITICAS */
+/* ========================= */
+/* desplazamiento vertical */
+.desplazamiento-vertical {
+    overflow-y: auto;
+    height: 325px;
+}
+
+
+/* ProgressBar */
+.progress {
+    height: 35px;
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    background: rgb(0, 0, 0);
+}
+
+.progress-bar {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    transition: width 0.25s; 
+    border-radius: 5px;
+}
+
+.progress-bar-text {
+    margin-left: 10px;
+    font-weight: bold;
+    color: var(--textos);
+    font-size: 9px;
+} */
+
+/* //CUADRO AGRUPACIONES */
+
+.col-md-4 {
+    margin-bottom: 20px; 
+}
+.porcentajes-partido,
+.votos-partidos {
+    margin-left: 5px; 
+}
+
+.progress-vertical2 {
+    position: relative; 
+    width: 80px;
+    height: 300px;
+    margin: 0;
+}
+
+.porcentaje-votos{
+    width: 150px;
+    height: 40px;
+}
+
+#cuadro-resumen {
+    width: 400px;
+    height: 350px;
+    display: flex;
+    flex-wrap: nowrap; 
+}
+
+.partido2{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 50px;
+    height: 300px;
+    font-size: small;
+    margin: 1px;
+}
+
+.nombre-agrupaciones2 {
+    font-size: smaller;
+    width: 40px; 
+    writing-mode: vertical-lr; 
+    margin-top: 1px; 
+    padding: 0;
+    margin-left: 25px;
+}
