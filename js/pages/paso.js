@@ -1,6 +1,7 @@
 const tipoEleccion = 1;
 const tipoRecuento = 1;
 
+// se asigna la referencia al elemento del DOM
 const selectYear = document.getElementById('comboYear');
 const selectCargo = document.getElementById('comboCargo');
 const selectDistrito = document.getElementById('comboDistrito');
@@ -163,6 +164,7 @@ async function consultarCargo() {
         }
     }
     catch (errorObj) {
+        console.log(errorObj);
         mostrarMensaje(msjRojo, "Error, el servidor se encuentra fuera de servicio!");
     }
 };
@@ -324,7 +326,7 @@ function agregarInforme() {
     if (informes.includes(nuevoInforme)) {
         mostrarMensaje(msjAmarillo, "El informe ya se encuentra añadido.");
     } else {
-        //Spread Operator: Permite copiar los elementos de un arreglo
+        //Spread Operator: Permite copiar los elementos de un arreglo --informes.push(nuevoInforme); es la otra manera de hacerlo
         informes = [...informes, nuevoInforme];
         // JSON.stringify: Convierte un objeto JavaScript en una cadena de texto JSON para poder guardarlo en el localStorage porque deben estar en formato JSON.
         localStorage.setItem('INFORMES', JSON.stringify(informes)); 
