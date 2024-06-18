@@ -311,20 +311,23 @@ function agregarInforme() {
     let seccionId = selectSeccion.value;
     let circuitoId = "";
     let mesaId = "";
-
+    // Creación del nuevo informe como una cadena separada por '|' 
     nuevoInforme = `${vAnio}|${vTipoRecuento}|${vTipoEleccion}|${vCategoriaId}|${vDistrito}|${vSeccionProvincial}|${seccionId}|${circuitoId}|${mesaId}|${selectedYear}|${selectedCargo}|${selectedDistrito}|${selectedSeccion}`;
 
     let informes = [];
 
     if (localStorage.getItem('INFORMES')) {
+        // JSON.parse: Convierte una cadena de texto JSON en un objeto JavaScript (array) para poder manipular en el codigo.
         informes = JSON.parse(localStorage.getItem('INFORMES'));
     };
 
     if (informes.includes(nuevoInforme)) {
         mostrarMensaje(msjAmarillo, "El informe ya se encuentra añadido.");
     } else {
-        informes.push(nuevoInforme);
-        localStorage.setItem('INFORMES', JSON.stringify(informes));
+        //Spread Operator: Permite copiar los elementos de un arreglo
+        informes = [...informes, nuevoInforme];
+        // JSON.stringify: Convierte un objeto JavaScript en una cadena de texto JSON para poder guardarlo en el localStorage porque deben estar en formato JSON.
+        localStorage.setItem('INFORMES', JSON.stringify(informes)); 
         mostrarMensaje(msjVerde, "Informe agregado con éxito");
     };
 };
@@ -333,7 +336,7 @@ function cuadroAgrupPoliticas() {
 
     console.log(resultados.valoresTotalizadosPositivos);
 
-    let agrupaciones = resultados.valoresTotalizadosPositivos.sort((a, b) => b.votos - a.votos);
+    let agrupaciones = resultados.valoresTotalizadosPositivos.sort((a, b) => b.votos - a.votos); // .sort lo que hace es ordenar los partidos de mas votados a menos votados.
 
 
     if (agrupaciones) {
