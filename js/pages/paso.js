@@ -63,7 +63,7 @@ const agrupacionesYColores = {
 
 //EVENTOS.
 document.addEventListener('DOMContentLoaded', () => {
-    mostrarMensaje(msjAmarillo, "“Debe seleccionar los valores a filtrar y hacer clic en el botón FILTRAR”");
+    mostrarMensaje(msjAmarillo, "Debe seleccionar los valores a filtrar y hacer clic en el botón FILTRAR");
 });
 document.addEventListener('DOMContentLoaded', consultarAños);
 selectYear.addEventListener('change', consultarCargo);

@@ -47,8 +47,6 @@ const graficaVerde = getComputedStyle(document.documentElement).getPropertyValue
 const graficaVerdeClaro = getComputedStyle(document.documentElement).getPropertyValue('--grafica-verde-claro');
 
 
-
-
 const agrupacionesYColores = {
     0: { oscuro: getComputedStyle(document.documentElement).getPropertyValue('--grafica-amarillo'), claro: getComputedStyle(document.documentElement).getPropertyValue('--grafica-amarillo-claro') },
     1: { oscuro: getComputedStyle(document.documentElement).getPropertyValue('--grafica-celeste'), claro: getComputedStyle(document.documentElement).getPropertyValue('--grafica-celeste-claro') },
@@ -65,7 +63,7 @@ const agrupacionesYColores = {
 
 //EVENTOS.
 document.addEventListener('DOMContentLoaded', () => {
-    mostrarMensaje(msjAmarillo, "“Debe seleccionar los valores a filtrar y hacer clic en el botón FILTRAR”");
+    mostrarMensaje(msjAmarillo, "Debe seleccionar los valores a filtrar y hacer clic en el botón FILTRAR");
 });
 document.addEventListener('DOMContentLoaded', consultarAños);
 selectYear.addEventListener('change', consultarCargo);
