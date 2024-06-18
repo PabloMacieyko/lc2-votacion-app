@@ -1,6 +1,7 @@
 const tipoEleccion = 2;
 const tipoRecuento = 1;
 
+// se asigna la referencia al elemento del DOM
 const selectYear = document.getElementById('comboYear');
 const selectCargo = document.getElementById('comboCargo');
 const selectDistrito = document.getElementById('comboDistrito');
@@ -105,8 +106,6 @@ function camposVacios() {
     }
 };
 
-
-
 // LIMPIAR SELECTS
 function limpiarSelect(select) {
     while (select.options.length > 1) {
@@ -118,10 +117,10 @@ function limpiarSelect(select) {
 async function consultarAños() {
     const url = `https://resultados.mininterior.gob.ar/api/menu/periodos`;
     try {
-        const response = await fetch(url);
+        const response = await fetch(url); // Espero esta respuesta
         console.log(response.ok);
         if (response.ok) {
-            const años = await response.json();
+            const años = await response.json(); // para despues obtenerla en json y que siga el codigo.
             años.forEach((años) => {
                 const option = document.createElement('option');
                 option.value = años;
@@ -129,7 +128,7 @@ async function consultarAños() {
                 selectYear.appendChild(option);
             });
         } else {
-            mostrarMensaje(msjRojo, "Error, el servidor se encuentra fuera de servicio!");
+            mostrarMensaje(msjRojo, "Error, no se pudo traer los datos!");
         }
     }
     catch (errorObj) {
@@ -163,7 +162,7 @@ async function consultarCargo() {
                 }
             });
         } else {
-            mostrarMensaje(msjRojo, "Error, el servidor se encuentra fuera de servicio!");
+            mostrarMensaje(msjRojo, "Error, no se pudo traer los datos!");
         }
     }
     catch (errorObj) {
@@ -250,11 +249,11 @@ async function filtrarResultados() {
                 cuadroAgrupPoliticas();
                 mostrarContenido();
             } else {
-                mostrarMensaje(msjRojo, "Error, el servidor sssse encuentra fuera de servicio!");
+                mostrarMensaje(msjRojo, "Error, el servidor se encuentra fuera de servicio!");
             }
         }
         catch (errorObj) {
-            mostrarMensaje(msjRojo, "Error, el servdddddidor se encuentra fuera de servicio!");
+            mostrarMensaje(msjRojo, "Error, el servidor se encuentra fuera de servicio!");
         };
     } else {
         camposVacios();
@@ -269,8 +268,8 @@ function validarSelects() {
 
 // FUNCION PARA MOSTRAR TITULO Y SUBTITULO.
 function mostrarTitulos() {
-    titulo.textContent = `Elecciones ${selectYear.value} | Paso`
-    subtitulo.textContent = subtitulo.textContent = `${selectYear.options[selectYear.selectedIndex].textContent} > Paso > ${selectCargo.options[selectCargo.selectedIndex].textContent} > ${selectDistrito.options[selectDistrito.selectedIndex].textContent} > ${selectSeccion.options[selectSeccion.selectedIndex].textContent}`;
+    titulo.textContent = `Elecciones ${selectYear.value} | General`
+    subtitulo.textContent = subtitulo.textContent = `${selectYear.options[selectYear.selectedIndex].textContent} > General > ${selectCargo.options[selectCargo.selectedIndex].textContent} > ${selectDistrito.options[selectDistrito.selectedIndex].textContent} > ${selectSeccion.options[selectSeccion.selectedIndex].textContent}`;
     titulo.style.visibility = 'visible';
     subtitulo.style.visibility = 'visible';
 };
@@ -315,22 +314,23 @@ function agregarInforme() {
     let circuitoId = "";
     let mesaId = "";
 
-    nuevoInforme = `${vAnio}|${vTipoRecuento}|${vTipoEleccion}|${vCategoriaId}|${vDistrito}|${vSeccionProvincial}|${seccionId}|${circuitoId}|${mesaId}|${selectedYear}|${selectedCargo}|${selectedDistrito}|${selectedSeccion}`;
+    // Creación del nuevo informe como una cadena separada por '|' 
+    let nuevoInforme = `${vAnio}|${vTipoRecuento}|${vTipoEleccion}|${vCategoriaId}|${vDistrito}|${vSeccionProvincial}|${seccionId}|${circuitoId}|${mesaId}|${selectedYear}|${selectedCargo}|${selectedDistrito}|${selectedSeccion}`;
 
-    let informes = [];
+    // Recuperar la cadena de informes de localStorage Se fija si ya existe, y la divide en un array.  si no existe lo asigna a un nuevo array.
+    let informes = localStorage.getItem('INFORMES') ? localStorage.getItem('INFORMES').split(';') : [];
 
-    if (localStorage.getItem('INFORMES')) {
-        informes = JSON.parse(localStorage.getItem('INFORMES'));
-    };
-
+    // Verificar si el informe ya existe en el array
     if (informes.includes(nuevoInforme)) {
         mostrarMensaje(msjAmarillo, "El informe ya se encuentra añadido.");
     } else {
-        informes.push(nuevoInforme);
-        localStorage.setItem('INFORMES', JSON.stringify(informes));
+        // Si no existe, agregar el nuevo informe al array-- informes.push(nuevoInforme); es la otra manera de hacerlo
+        informes = [...informes, nuevoInforme];
+        // Guardar el array de informes como una cadena concatenada en localStorage, separada por ';'.
+        localStorage.setItem('INFORMES', informes.join(';'));
         mostrarMensaje(msjVerde, "Informe agregado con éxito");
-    };
-};
+    }
+}
 
 function cuadroAgrupPoliticas() {
 

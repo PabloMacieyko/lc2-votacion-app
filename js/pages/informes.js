@@ -22,19 +22,19 @@ function ocultarMensajes() {
 };
 
 //EVENTOS.
-document.addEventListener('DOMContentLoaded', () => {
-    ocultarMensajes();
-});
-
 document.addEventListener('DOMContentLoaded', async () => {
+    ocultarMensajes();
+    
     if (localStorage.getItem('INFORMES')) {
-        informes = JSON.parse(localStorage.getItem('INFORMES'));
+        // Recuperar la cadena de informes y dividirla en un array
+        let informes = localStorage.getItem('INFORMES').split(';');
+        // recorrer cada informe
         informes.forEach(informe => {
             const url = armarUrl(informe);
             return consultarResultados(url, informe);
         });
     } else {
-        mostrarMensaje(msjAmarillo, "Se debe Agregar un Informe!");
+        mostrarMensaje(msjAmarillo, "Se debe Agregar un INFORME!");
     }
 });
 
@@ -78,7 +78,7 @@ async function consultarResultados(url, informe) {
         console.log(response.ok);
         if (response.ok) {
             cartelCargando.style.visibility = 'hidden';
-            const resultados = await response.json();
+            let resultados = await response.json();
             console.log(resultados);
             crearInforme(resultados, informe);
         } else {
