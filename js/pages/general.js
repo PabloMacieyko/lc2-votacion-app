@@ -47,6 +47,8 @@ const graficaVerde = getComputedStyle(document.documentElement).getPropertyValue
 const graficaVerdeClaro = getComputedStyle(document.documentElement).getPropertyValue('--grafica-verde-claro');
 
 
+
+
 const agrupacionesYColores = {
     0: { oscuro: getComputedStyle(document.documentElement).getPropertyValue('--grafica-amarillo'), claro: getComputedStyle(document.documentElement).getPropertyValue('--grafica-amarillo-claro') },
     1: { oscuro: getComputedStyle(document.documentElement).getPropertyValue('--grafica-celeste'), claro: getComputedStyle(document.documentElement).getPropertyValue('--grafica-celeste-claro') },
@@ -63,7 +65,7 @@ const agrupacionesYColores = {
 
 //EVENTOS.
 document.addEventListener('DOMContentLoaded', () => {
-    mostrarMensaje(msjAmarillo, "Debe seleccionar los valores a filtrar y hacer clic en el botón FILTRAR");
+    mostrarMensaje(msjAmarillo, "“Debe seleccionar los valores a filtrar y hacer clic en el botón FILTRAR”");
 });
 document.addEventListener('DOMContentLoaded', consultarAños);
 selectYear.addEventListener('change', consultarCargo);
@@ -145,7 +147,7 @@ async function consultarCargo() {
     selectedYear = selectYear.options[selectYear.selectedIndex].textContent;
     const url = "https://resultados.mininterior.gob.ar/api/menu?año=";
     try {
-        const response = await fetch(url + selectYear.value);
+        const response = await fetch(url + selectedYear);
         console.log(response.ok);
         if (response.ok) {
             limpiarSelect(selectCargo);
@@ -225,11 +227,11 @@ async function filtrarResultados() {
     if (validarSelects()) {
         ocultarMensajes();
         const url = `https://resultados.mininterior.gob.ar/api/resultados/getResultados`;
-        let anioEleccion = selectYear.value;
-        let categoriaId = selectCargo.value;
-        let distritoId = selectDistrito.value;
+        let anioEleccion = selectedYear;
+        let categoriaId = selectedCargo;
+        let distritoId = selectedDistrito;
         let seccionProvincialId = 0;
-        let seccionId = selectSeccion.value;
+        let seccionId = selectedSeccion;
         let circuitoId = "";
         let mesaId = "";
         let parametros = `?anioEleccion=${anioEleccion}&tipoRecuento=${tipoRecuento}&tipoEleccion=${tipoEleccion}&categoriaId=${categoriaId}&distritoId=${distritoId}&seccionProvincialId=${seccionProvincialId}&seccionId=${seccionId}&circuitoId=${circuitoId}&mesaId=${mesaId}`;
@@ -250,12 +252,11 @@ async function filtrarResultados() {
                 cuadroAgrupPoliticas();
                 mostrarContenido();
             } else {
-                mostrarMensaje(msjRojo, "Error, el servidor se encuentra fuera de servicio!");
+                mostrarMensaje(msjRojo, "Error, el servidor sssse encuentra fuera de servicio!");
             }
         }
         catch (errorObj) {
-            console.error(errorObj);
-            mostrarMensaje(msjRojo, "Error, el servidor se encuentra fuera de servicio!");
+            mostrarMensaje(msjRojo, "Error, el servdddddidor se encuentra fuera de servicio!");
         };
     } else {
         camposVacios();
@@ -265,12 +266,12 @@ async function filtrarResultados() {
 
 // FUNCION PARA VALIDAR LOS SELECTS.
 function validarSelects() {
-    return selectYear.value !== 'none' && selectCargo.value !== 'none' && selectDistrito.value !== 'none' && selectSeccion.value !== 'none'
+    return selectedYear !== 'none' && selectedCargo !== 'none' && selectedDistrito !== 'none' && selectedSeccion !== 'none'
 };
 
 // FUNCION PARA MOSTRAR TITULO Y SUBTITULO.
 function mostrarTitulos() {
-    titulo.textContent = `Elecciones ${selectYear.value} | Paso`
+    titulo.textContent = `Elecciones ${selectedYear} | Paso`
     subtitulo.textContent = subtitulo.textContent = `${selectYear.options[selectYear.selectedIndex].textContent} > Paso > ${selectCargo.options[selectCargo.selectedIndex].textContent} > ${selectDistrito.options[selectDistrito.selectedIndex].textContent} > ${selectSeccion.options[selectSeccion.selectedIndex].textContent}`;
     titulo.style.visibility = 'visible';
     subtitulo.style.visibility = 'visible';
@@ -306,32 +307,29 @@ function limpiarElemento(element) {
 
 // +AGREGAR INFORMES
 function agregarInforme() {
-    let vAnio = selectYear.value;
+    let vAnio = selectedYear;
     let vTipoRecuento = tipoRecuento;
     let vTipoEleccion = tipoEleccion;
-    let vCategoriaId = selectCargo.value;
-    let vDistrito = selectDistrito.value;
+    let vCategoriaId = selectedCargo;
+    let vDistrito = selectedDistrito;
     let vSeccionProvincial = 0;
-    let seccionId = selectSeccion.value;
+    let seccionId = selectedSeccion;
     let circuitoId = "";
     let mesaId = "";
-    // Creación del nuevo informe como una cadena separada por '|' 
+
     nuevoInforme = `${vAnio}|${vTipoRecuento}|${vTipoEleccion}|${vCategoriaId}|${vDistrito}|${vSeccionProvincial}|${seccionId}|${circuitoId}|${mesaId}|${selectedYear}|${selectedCargo}|${selectedDistrito}|${selectedSeccion}`;
 
     let informes = [];
 
     if (localStorage.getItem('INFORMES')) {
-        // JSON.parse: Convierte una cadena de texto JSON en un objeto JavaScript (array) para poder manipular en el codigo.
         informes = JSON.parse(localStorage.getItem('INFORMES'));
     };
 
     if (informes.includes(nuevoInforme)) {
         mostrarMensaje(msjAmarillo, "El informe ya se encuentra añadido.");
     } else {
-        //Spread Operator: Permite copiar los elementos de un arreglo --informes.push(nuevoInforme); es la otra manera de hacerlo
-        informes = [...informes, nuevoInforme];
-        // JSON.stringify: Convierte un objeto JavaScript en una cadena de texto JSON para poder guardarlo en el localStorage porque deben estar en formato JSON.
-        localStorage.setItem('INFORMES', JSON.stringify(informes)); 
+        informes.push(nuevoInforme);
+        localStorage.setItem('INFORMES', JSON.stringify(informes));
         mostrarMensaje(msjVerde, "Informe agregado con éxito");
     };
 };
